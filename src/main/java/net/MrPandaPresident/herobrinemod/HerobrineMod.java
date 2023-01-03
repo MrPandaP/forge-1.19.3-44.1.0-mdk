@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 @Mod(HerobrineMod.MOD_ID)
 public class HerobrineMod
 {
+    // Very Important Comment
     public static final String MOD_ID = "herobrinemod";
     private static final Logger LOGGER = LogUtils.getLogger();
     public HerobrineMod()
