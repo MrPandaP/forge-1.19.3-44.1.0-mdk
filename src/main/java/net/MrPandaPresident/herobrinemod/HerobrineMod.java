@@ -1,6 +1,7 @@
 package net.MrPandaPresident.herobrinemod;
 
 import com.mojang.logging.LogUtils;
+import net.MrPandaPresident.herobrinemod.item.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.Blocks;
@@ -23,9 +24,14 @@ public class HerobrineMod
     // Very Important Comment
     public static final String MOD_ID = "herobrinemod";
     private static final Logger LOGGER = LogUtils.getLogger();
-    public HerobrineMod()
-    {
+    public HerobrineMod() {
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        ModItems.register(modEventBus);
+
+        modEventBus.addListener(this::commonSetup);
+
+        MinecraftForge.EVENT_BUS.register(this);
     }
     private void commonSetup(final FMLCommonSetupEvent event) {
         // Some common setup code
@@ -37,8 +43,7 @@ public class HerobrineMod
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event)
-        {
+        public static void onClientSetup(FMLClientSetupEvent event) {
             // Some client setup code
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
